@@ -54,100 +54,28 @@ Plug('hrsh7th/cmp-vsnip') --snippet engine
 Plug('hrsh7th/vim-vsnip') --snippet engine
 
 vim.call('plug#end')
---TODO: MOVE TO ALTERNATIVE FILES LIKE require(plugins.cmpsetup)
--- Set up nvim-cmp.
-  local cmp = require'cmp'
 
-  cmp.setup({
-    snippet = {
-      -- REQUIRED - you must specify a snippet engine
-      expand = function(args)
-        vim.fn["vsnip#anonymous"](args.body)
-      end,
-    },
-    window = {
-      --completion = cmp.config.window.bordered(),
-      --documentation = cmp.config.window.bordered(),
-    },
-    mapping = cmp.mapping.preset.insert({
-      ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-      ['<C-f>'] = cmp.mapping.scroll_docs(4),
-      ['<C-Space>'] = cmp.mapping.complete(),
-      ['<C-e>'] = cmp.mapping.abort(),
-      ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-    }),
-    sources = cmp.config.sources({
-      { name = 'nvim_lsp' },
-      { name = 'vsnip' }, 
-	  }, {
-      { name = 'buffer' },
-    })
-  })
-
-
-
-require('mason').setup()
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
-require('mason-lspconfig').setup({
-		ensure_installed = { 
-		'lua_ls',
-		'tsserver',
-		'clangd', 
-		'pyright', 
-		'volar', 
-		'cssls', 
-		'html', 
-		'jsonls',
-		'bashls',
-		'marksman',
-		'yamlls',
-		'tailwindcss',
-		'rust_analyzer'
-		},
-		handlers = {
-    -- This default handler will apply to all servers
-    function(server_name)
-      vim.lsp.config(server_name, {
-        capabilities = capabilities,
-      })
-    end,
-    }
-})
-
--- move config and plugin config to alternate files
+require("config.cmp-setup")
 require("config.theme")
 require("config.mappings")
 require("config.options")
 require("config.autocmd")
 
 require("plugins.alpha")
--- require("plugins.autopairs")
+require("plugins.autopairs")
 require("plugins.barbar")
 require("plugins.colorizer")
 require("plugins.colorscheme")
 require("plugins.comment")
--- require("plugins.fterm")
--- require("plugins.fzf-lua")
+require("plugins.fterm")
+require("plugins.fzf-lua")
 require("plugins.gitsigns")
 require("plugins.lualine")
 require("plugins.nvim-lint")
--- require("plugins.nvim-tree")
-require("plugins.render-markdown")
--- require("plugins.treesitter")
--- require("plugins.twilight")
--- require("plugins.which-key")
-
-vim.defer_fn(function() 
-		--defer non-essential configs,
-		--purely for experimental purposes:
-		--this only makes a difference of +-10ms on initial startup
-require("plugins.autopairs")
-require("plugins.fterm")
-require("plugins.fzf-lua")
 require("plugins.nvim-tree")
+require("plugins.render-markdown")
 require("plugins.treesitter")
 require("plugins.twilight")
 require("plugins.which-key")
-end, 100)
 
 load_theme()
