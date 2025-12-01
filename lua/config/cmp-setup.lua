@@ -18,7 +18,7 @@
       ['<C-f>'] = cmp.mapping.scroll_docs(4),
       ['<C-Space>'] = cmp.mapping.complete(),
       ['<C-e>'] = cmp.mapping.abort(),
-      ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+      ['<CR>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
     }),
     sources = cmp.config.sources({
       { name = 'nvim_lsp' },
@@ -44,7 +44,9 @@ require('mason-lspconfig').setup({
 		'marksman',
 		'yamlls',
 		'tailwindcss',
-		'rust_analyzer'
+		'rust_analyzer',
+		'vtsls',
+		'vue_ls'
 		},
 		handlers = {
     -- This default handler will apply to all servers
@@ -55,4 +57,29 @@ require('mason-lspconfig').setup({
     end,
     }
 })
+
+local vue_language_server_path = vim.fn.stdpath("data")
+.. "/mason/packages/vue-language-server/node_modules/@vue/language-server"
+
+local vue_plugin = {
+name = "@vue/typescript-plugin",
+location = vue_language_server_path,
+languages = { "vue" },
+configNamespace = "typescript",
+}
+vim.lsp.config("vtsls", {
+settings = {
+vtsls = {
+tsserver = {
+globalPlugins = {
+vue_plugin,
+},
+},
+},
+},
+filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
+})
+
+vim.lsp.enable("vue_ls")
+vim.lsp.enable("vtsls")
 
