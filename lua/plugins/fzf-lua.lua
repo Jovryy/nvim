@@ -10,7 +10,9 @@ require("fzf-lua").setup{
 --   hls = { ...  },         -- Highlights
 --   previewers = { ...  },  -- Previewers options
 --   -- SPECIFIC COMMAND/PICKER OPTIONS, SEE BELOW
---   -- files = { ... },
+        files = { 
+				cmd="rg --files",
+		},
 
 keymap = {
     -- Below are the default binds, setting any value in these tables will override
