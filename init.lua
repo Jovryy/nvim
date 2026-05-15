@@ -1,6 +1,5 @@
--- bread's neovim config
+-- neovim dotfiles based on BreadOnPenguins' config
 -- keymaps are in lua/config/mappings.lua
--- install a patched font & ensure your terminal supports glyphs
 -- enjoy :D
 
 -- auto install vim-plug and plugins, if not found
